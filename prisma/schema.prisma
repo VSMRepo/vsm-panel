@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model EventLog {
+  id            String   @id @default(cuid())
+  session_id    String
+  app_version   String?
+  os_version    String?
+  machine_id    String?
+  internal_ip   String?
+  external_ip   String?
+  time_exported String?
+  store_id      String
+  duration      Int?
+  compras_count Int      @default(0)
+  sat_count     Int      @default(0)
+  nfce_count    Int      @default(0)
+  nfe_count     Int      @default(0)
+  compacted     Boolean  @default(true)
+  reports       Boolean  @default(true)
+  createdAt     DateTime @default(now())
+}
