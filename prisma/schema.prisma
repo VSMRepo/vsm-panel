@@ -22,6 +22,8 @@ model EventLog {
   machine_id    String?
   internal_ip   String?
   external_ip   String?
+  machine_ini   String?
+  store_ini     String?
   time_exported String?
   store_id      String
   duration      Int?
