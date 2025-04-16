@@ -4,8 +4,10 @@ import Link from "next/link";
 
 export default function TopBar() {
   return (
-    <div className="flex items-center justify-between p-4 bg-gray-800 text-white">
-      <div className="text-lg font-bold">VSM Panel</div>
+    <div className="flex items-center justify-between p-4 bg-base-300 text-base-content">
+      <div className="text-lg font-bold">
+        <Link href="/">VSM Panel</Link>
+      </div>
       <div className="flex items-center space-x-4">
         <Link
           href="https://github.com/matheusgrilo/xml-facil-vsm/releases/latest/download/XML_Facil.exe"
