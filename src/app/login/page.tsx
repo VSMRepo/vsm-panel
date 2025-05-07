@@ -1,11 +1,9 @@
 import { Key, Mail } from "lucide-react";
 import { login } from "./actions";
-import TopBar from "@/components/landing/TopBar";
 
 export default function LoginPage() {
   return (
     <>
-      <TopBar />
       <div className="hero bg-base-200 min-h-screen">
         <form>
           <div className="card w-96 bg-base-100 shadow-xl mx-auto -mt-64">

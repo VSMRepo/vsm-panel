@@ -1,6 +1,7 @@
 import { Github } from "@/assets/svg/Github";
 import { Download } from "lucide-react";
 import Link from "next/link";
+import User from "../User";
 
 export default function TopBar() {
   return (
@@ -25,9 +26,7 @@ export default function TopBar() {
         >
           <Github className="w-5 h-5" />
         </Link>
-        <Link href="/login" className="hover:text-gray-400">
-          Login
-        </Link>
+        <User />
       </div>
     </div>
   );
