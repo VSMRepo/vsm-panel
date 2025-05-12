@@ -1,9 +1,14 @@
+"use client";
+
 import { Github } from "@/assets/svg/Github";
 import { Download } from "lucide-react";
 import Link from "next/link";
-import User from "../User";
 
-export default function TopBar() {
+interface TopBarClientProps {
+  rightSlot?: React.ReactNode;
+}
+
+export default function TopBarClient({ rightSlot }: TopBarClientProps) {
   return (
     <div className="flex items-center justify-between p-4 bg-base-300 text-base-content">
       <div className="text-lg font-bold">
@@ -26,7 +31,7 @@ export default function TopBar() {
         >
           <Github className="w-5 h-5" />
         </Link>
-        <User />
+        {rightSlot}
       </div>
     </div>
   );

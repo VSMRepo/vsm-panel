@@ -1,12 +1,11 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import UserDropdown from "./UserDropdown";
+import UserClient from "./UserClient";
 import { LogInIcon } from "lucide-react";
 
-export default async function User() {
+export default async function UserServer() {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getUser();
-
   const user = data?.user;
 
   if (error || !user) {
@@ -17,5 +16,5 @@ export default async function User() {
     );
   }
 
-  return <UserDropdown />;
+  return <UserClient />;
 }
