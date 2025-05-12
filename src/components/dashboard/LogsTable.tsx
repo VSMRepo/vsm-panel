@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { BookOpenTextIcon, FolderArchiveIcon } from "lucide-react";
 
 type Event = {
   id: string;
@@ -27,59 +28,95 @@ const columnHelper = createColumnHelper<Event>();
 
 const columns = [
   columnHelper.accessor("store_id", {
-    header: "Loja",
+    header: "Loja / CNPJ",
+    footer: "Loja / CNPJ",
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor("app_version", {
     header: "Versão",
+    footer: "Versão",
     cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor("compacted", {
-    header: "Compactado",
+    header: () => (
+      <div className="tooltip tooltip-left" data-tip="Compactado">
+        <FolderArchiveIcon className="w-5 h-5" />
+      </div>
+    ),
+    footer: () => (
+      <div className="tooltip tooltip-left" data-tip="Compactado">
+        <FolderArchiveIcon className="w-5 h-5" />
+      </div>
+    ),
     cell: (info) => (info.getValue() ? "✅" : "❌"),
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor("reports", {
-    header: "Relatórios",
+    header: () => (
+      <div className="tooltip tooltip-right" data-tip="Relatórios">
+        <BookOpenTextIcon className="w-5 h-5" />
+      </div>
+    ),
+    footer: () => (
+      <div className="tooltip tooltip-right" data-tip="Relatórios">
+        <BookOpenTextIcon className="w-5 h-5" />
+      </div>
+    ),
     cell: (info) => (info.getValue() ? "✅" : "❌"),
-    footer: (info) => info.column.id,
   }),
   columnHelper.accessor("createdAt", {
     header: "Criado em",
-    cell: (info) => new Date(info.getValue()).toLocaleString(),
-    footer: (info) => info.column.id,
+    footer: "Criado em",
+    cell: (info) => {
+      const date = new Date(info.getValue());
+      date.setHours(date.getHours() - 3); // America/Sao_Paulo timezone offset
+      return date.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo",
+      });
+    },
   }),
   columnHelper.accessor("time_exported", {
     header: "Período",
-    cell: (info) => info.getValue() || "-",
-    footer: (info) => info.column.id,
+    footer: "Período",
+    cell: (info) => {
+      const date = new Date(info.getValue());
+      return `${String(date.getMonth() + 1).padStart(
+        2,
+        "0"
+      )} de ${date.getFullYear()}`;
+    },
   }),
   columnHelper.accessor("sat_count", {
     header: "SAT",
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    footer: "SAT",
+    cell: (info) => (info.getValue() == 0 ? "❌" : info.getValue()),
   }),
   columnHelper.accessor("nfce_count", {
     header: "NFC-e",
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    footer: "NFC-e",
+    cell: (info) => (info.getValue() == 0 ? "❌" : info.getValue()),
   }),
   columnHelper.accessor("nfe_count", {
     header: "NF-e",
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    footer: "NF-e",
+    cell: (info) => (info.getValue() == 0 ? "❌" : info.getValue()),
   }),
   columnHelper.accessor("compras_count", {
     header: "Compras",
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    footer: "Compras",
+    cell: (info) => (info.getValue() == 0 ? "❌" : info.getValue()),
   }),
   columnHelper.accessor("duration", {
     header: "Duração",
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
+    footer: "Duração",
+    cell: (info) => {
+      const seconds = info.getValue();
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+      return `${hours > 0 ? String(hours).padStart(2, "0") + ":" : ""}${String(
+        minutes
+      ).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+    },
   }),
 ];
 
@@ -95,7 +132,7 @@ export default function LogsTable({ events }: { events: Event[] }) {
 
   return (
     <div className="overflow-x-auto">
-      <table>
+      <table className="table w-full">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
