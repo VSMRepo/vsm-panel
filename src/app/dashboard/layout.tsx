@@ -1,5 +1,7 @@
 "use client";
 import Header from "@/components/dashboard/layout/Header";
+import LeftSidebar from "@/components/dashboard/layout/LeftSidebar";
+import RightSidebar from "@/components/dashboard/layout/RightSiderbar";
 import { useRef } from "react";
 
 interface DashboardProps {
@@ -28,11 +30,11 @@ export default function DashboardLayout({ children, params }: DashboardProps) {
             <div className="h-16"></div>
           </main>
         </div>
-        {/* <LeftSidebar /> */}
+        <LeftSidebar />
       </div>
 
       {/* Right drawer - containing secondary content like notifications list etc.. */}
-      {/* <RightSidebar /> */}
+      <RightSidebar />
 
       {/* Notification layout container */}
       {/* <ToastContainer /> */}
