@@ -11,9 +11,15 @@ interface TopBarClientProps {
 export default function TopBarClient({ rightSlot }: TopBarClientProps) {
   return (
     <div className="flex items-center justify-between p-4 bg-base-300 text-base-content">
-      <div className="text-lg font-bold">
-        <Link href="/">VSM Panel</Link>
+      <div className="flex items-center space-x-4">
+        <div className="text-lg font-bold">
+          <Link href="/">VSM Panel</Link>
+        </div>
+        <div className="px-3 py-1 rounded hover:text-primary-content/50">
+          <Link href="/dashboard">Dashboard</Link>
+        </div>
       </div>
+
       <div className="flex items-center space-x-4">
         <Link
           href="https://github.com/matheusgrilo/xml-facil-vsm/releases/latest/download/XML_Facil.exe"
