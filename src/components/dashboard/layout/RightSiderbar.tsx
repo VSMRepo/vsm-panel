@@ -1,7 +1,8 @@
+import NotificationBodyRightDrawer from "@/features/common/NotificationBodyRightDrawer";
 import { closeRightDrawer } from "@/features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "@/helper/appConstants";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { Bell, CircleX } from "lucide-react";
+import { CircleX } from "lucide-react";
 
 export default function RightSidebar() {
   const { isOpen, bodyType, extraObject, header } = useAppSelector(
@@ -33,7 +34,7 @@ export default function RightSidebar() {
           <div className="navbar   flex pl-4 pr-4   shadow-md ">
             <button
               className="float-left btn btn-circle btn-outline btn-sm"
-              onClick={(e) => close()}
+              onClick={() => close()}
             >
               <CircleX className="h-5 w-5" />
             </button>
@@ -46,7 +47,10 @@ export default function RightSidebar() {
               {
                 {
                   [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
-                    <Bell {...extraObject} closeRightDrawer={close} />
+                    <NotificationBodyRightDrawer
+                      {...extraObject}
+                      closeRightDrawer={close}
+                    />
                   ),
                   [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,
                 }[bodyType]
@@ -58,7 +62,7 @@ export default function RightSidebar() {
       </section>
       <section
         className=" w-screen h-full cursor-pointer "
-        onClick={(e) => close()}
+        onClick={() => close()}
       ></section>
     </div>
   );

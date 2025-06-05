@@ -1,4 +1,6 @@
 import { removeNotificationMessage } from "@/features/common/headerSlice";
+import { openRightDrawer } from "@/features/common/rightDrawerSlice";
+import { RIGHT_DRAWER_TYPES } from "@/helper/appConstants";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { BellIcon, Menu, MoonIcon, SunIcon } from "lucide-react";
 import { JSX, useEffect, useState } from "react";
@@ -44,30 +46,30 @@ export default function Header({ contentRef }: HeaderProps): JSX.Element {
     }
   }, [pageTitle]);
 
-  //   useEffect(() => {
-  //     themeChange(false);
-  //     if (currentTheme === null) {
-  //       if (
-  //         window.matchMedia &&
-  //         window.matchMedia("(prefers-color-scheme: dark)").matches
-  //       ) {
-  //         setCurrentTheme("dark");
-  //       } else {
-  //         setCurrentTheme("light");
-  //       }
-  //     }
-  //   }, []);
+  useEffect(() => {
+    // themeChange(false);
+    if (currentTheme === null) {
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        setCurrentTheme("dark");
+      } else {
+        setCurrentTheme("light");
+      }
+    }
+  }, []);
 
   // Opening right sidebar for notification
-  //   const openNotification = (): void => {
-  //     dispatch(
-  //       openRightDrawer({
-  //         header: "Notifications",
-  //         bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION,
-  //         extraObject: {},
-  //       })
-  //     );
-  //   };
+  const openNotification = (): void => {
+    dispatch(
+      openRightDrawer({
+        header: "Notifications",
+        bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION,
+        extraObject: {},
+      })
+    );
+  };
 
   return (
     <div className="navbar sticky top-0 bg-base-100 z-10 shadow-md">
@@ -105,7 +107,7 @@ export default function Header({ contentRef }: HeaderProps): JSX.Element {
         {/* Notification icon */}
         <button
           className="btn btn-ghost mr-4 ml-2 btn-circle"
-          //   onClick={openNotification}
+          onClick={openNotification}
         >
           <div className="indicator">
             <BellIcon className="h-6 w-6" />

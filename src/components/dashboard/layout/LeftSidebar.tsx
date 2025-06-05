@@ -123,7 +123,7 @@ export default function LeftSidebar(props: LeftSidebarProps) {
         >
           <div className="avatar">
             <div className="w-6 rounded-full">
-              <img src={user.avatar} />
+              <img src={user.avatar ? user.avatar : null} />
             </div>
           </div>
           {user.name}
