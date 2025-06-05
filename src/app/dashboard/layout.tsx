@@ -1,15 +1,17 @@
 "use client";
 import Header from "@/components/dashboard/layout/Header";
 import LeftSidebar from "@/components/dashboard/layout/LeftSidebar";
+import ModalLayout from "@/components/dashboard/layout/ModalLayout";
 import RightSidebar from "@/components/dashboard/layout/RightSiderbar";
 import { useRef } from "react";
+import { ToastContainer } from "react-toastify";
 
-interface DashboardProps {
+interface LayoutProps {
   children: React.ReactNode;
   params: { workspaceSlug: string };
 }
 
-export default function DashboardLayout({ children, params }: DashboardProps) {
+export default function LayoutLayout({ children, params }: LayoutProps) {
   const mainContentRef = useRef(null);
 
   return (
@@ -27,6 +29,7 @@ export default function DashboardLayout({ children, params }: DashboardProps) {
             ref={mainContentRef}
           >
             {children}
+            {params.workspaceSlug}
             <div className="h-16"></div>
           </main>
         </div>
@@ -37,10 +40,10 @@ export default function DashboardLayout({ children, params }: DashboardProps) {
       <RightSidebar />
 
       {/* Notification layout container */}
-      {/* <ToastContainer /> */}
+      <ToastContainer />
 
       {/* Modal layout container */}
-      {/* <ModalLayout /> */}
+      <ModalLayout />
     </>
   );
 }
